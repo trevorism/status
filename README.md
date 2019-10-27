@@ -8,3 +8,5 @@
 Current Version: 0.0.1
 
 Shows the recent events as they progress through the system.
+
+Deployed at [Status](https://status-dot-trevorism-eventhub.appspot.com/)
