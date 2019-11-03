@@ -10,3 +10,9 @@ Current Version: 0.0.1
 Shows the recent events as they progress through the system.
 
 Deployed at [Status](https://status-dot-trevorism-eventhub.appspot.com/)
+
+## To develop
+Simultaneously run:
+* `gradle appengineRun` and go to localhost:8080 (to see the server side)
+* `npm run dev` and go to localhost:3000 (to see the client side)
+

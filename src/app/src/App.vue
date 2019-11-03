@@ -5,8 +5,15 @@
         <h1 class="title">Trevorism Event Status</h1>
       </div>
     </section>
-    <section class="section">
-      <Grid></Grid>
+    <section class="level">
+      <div class="level-item">
+        <div class="sidebar">
+          <TopicMenu></TopicMenu>
+        </div>
+      </div>
+      <div class="level-item">
+        <Grid></Grid>
+      </div>
     </section>
 
   </div>
@@ -14,11 +21,12 @@
 
 <script>
 import Grid from './components/Grid.vue'
+import TopicMenu from './components/TopicMenu.vue'
 
 export default {
   name: 'App',
   components: {
-    Grid
+    Grid, TopicMenu
   }
 }
 </script>
@@ -26,5 +34,9 @@ export default {
 <style>
   body::-webkit-scrollbar {
     display: none;
+  }
+
+  .sidebar {
+    width: 250px
   }
 </style>

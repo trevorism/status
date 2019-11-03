@@ -1,4 +1,4 @@
-package com.trevorism.gcloud.webapi.controller
+package com.trevorism.status
 
 import org.junit.Test
 
@@ -10,7 +10,7 @@ class RootControllerTest {
     @Test
     void testRootControllerEndpoints(){
         RootController rootController = new RootController()
-        assert rootController.displayHelpLink().contains("/help")
+        assert rootController.displayHelpLink().contains("/api/help")
     }
 
     @Test
