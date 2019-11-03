@@ -1,32 +1,28 @@
 <template>
   <b-menu>
     <b-menu-list label="Topics">
-      <b-menu-item label="All"></b-menu-item>
+      <b-menu-item label="All" @click="selected('_all')" active></b-menu-item>
+      <div v-for="topic in allTopics" v-bind:key="topic.id">
+        <b-menu-item :label=topic @click="selected(topic)"></b-menu-item>
+      </div>
     </b-menu-list>
   </b-menu>
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
-
   name: 'TopicMenu',
-  mounted () {
-    axios.get('/api/status/topic')
-      .then(response => {
-        this.data = response.data
-        this.loaded = true
-      })
-      .catch(() => {
-        this.message = 'Error loading status grid. Please refresh.'
-      })
-  },
+  props: ['allTopics'],
   data () {
     return {
-      data: [],
+      data: this.allTopics,
       loaded: false,
       message: 'Loading...'
+    }
+  },
+  methods: {
+    selected: function (topicName) {
+      this.$emit('menuSelected', topicName)
     }
   }
 }
