@@ -16,11 +16,21 @@
           {{ props.row.correlationid }}
         </b-table-column>
         <b-table-column label="Actions">
-          <b-button>Details</b-button>
+          <b-button @click="showDetails(props.row.eventDetailsForDisplay)">Details</b-button>
           <b-button>View Flow</b-button>
         </b-table-column>
       </template>
     </b-table>
+    <b-modal :active.sync="isModalActive">
+      <div class="modal-card" style="width: auto">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Event Details</p>
+        </header>
+        <section class="modal-card-body">
+          <small class="container">{{this.currentDetails}}</small>
+        </section>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -30,7 +40,9 @@ export default {
   props: ['details', 'selectedItem'],
   data () {
     return {
-      collapsedData: []
+      collapsedData: [],
+      isModalActive: false,
+      currentDetails: null
     }
   },
   methods: {
@@ -40,6 +52,10 @@ export default {
         allData.push(...this.details[key])
       }
       this.collapsedData = allData
+    },
+    showDetails: function (details) {
+      this.isModalActive = true
+      this.currentDetails = details
     }
   },
   computed: {

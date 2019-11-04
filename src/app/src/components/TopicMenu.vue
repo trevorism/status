@@ -1,7 +1,7 @@
 <template>
   <b-menu>
     <b-menu-list label="Topics">
-      <b-menu-item label="All" @click="selected('_all')" active></b-menu-item>
+      <b-menu-item label="All" @click="selected('_all')"></b-menu-item>
       <div v-for="topic in allTopics" v-bind:key="topic.id">
         <b-menu-item :label=topic @click="selected(topic)"></b-menu-item>
       </div>

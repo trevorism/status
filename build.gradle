@@ -75,10 +75,10 @@ acceptance {
 
 appengine {
     deploy {
-        projectId = "trevorism-auth"
+        projectId = "trevorism-eventhub"
         stopPreviousVersion = true
         promote = true
-        version = "1"
+        version = "0-1-0"
     }
 }
 
