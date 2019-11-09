@@ -61,13 +61,7 @@ export default {
     },
     getAllDetails: function () {
       for (let topicName of this.topics) {
-        axios.get('/api/status/topic/' + topicName)
-          .then(response => {
-            this.details[topicName] = response.data
-          })
-          .catch(() => {
-            this.message = 'Error loading status details. Please refresh.'
-          })
+        this.getDetails(topicName)
       }
     },
     setGridData: function (value) {
