@@ -39,4 +39,14 @@ class StatusControllerTest {
         assert details[1].correlationid == "test1"
 
     }
+
+    @Test
+    void testTestResultsAreRemoved() {
+        statusController.httpClient = [get: {url -> return '["topic1","topic2","testresult"]'}] as HttpClient
+        List<String> topics = statusController.getTopics()
+        assert topics
+        assert topics.size() == 2
+        assert topics[0] == "topic1"
+        assert topics[1] == "topic2"
+    }
 }

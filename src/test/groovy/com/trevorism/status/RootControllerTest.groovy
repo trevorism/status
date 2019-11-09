@@ -8,14 +8,20 @@ import org.junit.Test
 class RootControllerTest {
 
     @Test
-    void testRootControllerEndpoints(){
+    void testRootControllerEndpoints() {
         RootController rootController = new RootController()
         assert rootController.displayHelpLink().contains("/api/help")
     }
 
     @Test
-    void testRootControllerPing(){
+    void testRootControllerPing() {
         RootController rootController = new RootController()
         assert rootController.ping() == "pong"
+    }
+
+    @Test
+    void testHelpPage() {
+        RootController rootController = new RootController()
+        assert rootController.help()
     }
 }
