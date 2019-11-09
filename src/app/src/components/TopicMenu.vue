@@ -1,9 +1,27 @@
 <template>
   <b-menu>
     <b-menu-list label="Topics">
-      <b-menu-item label="All" @click="selected('_all')"></b-menu-item>
+      <b-menu-item @click="selected('_all')" :active="true">
+        <template slot="label" slot-scope="all">
+          <div class="container">
+            All
+            <div v-if="!detailsLoaded._all" class="is-pulled-right">
+              <b-icon icon="refresh" size="is-small"></b-icon>
+            </div>
+          </div>
+        </template>
+      </b-menu-item>
       <div v-for="topic in allTopics" v-bind:key="topic.id">
-        <b-menu-item :label=topic @click="selected(topic)"></b-menu-item>
+        <b-menu-item @click="selected(topic)" :ref="topic">
+          <template slot="label" slot-scope="props">
+            <div class="container">
+              {{topic}}
+              <div v-if="!detailsLoaded[topic]" class="is-pulled-right">
+                <b-icon icon="refresh" size="is-small"></b-icon>
+              </div>
+            </div>
+          </template>
+        </b-menu-item>
       </div>
     </b-menu-list>
   </b-menu>
@@ -12,12 +30,9 @@
 <script>
 export default {
   name: 'TopicMenu',
-  props: ['allTopics'],
+  props: ['allTopics', 'detailsLoaded'],
   data () {
     return {
-      data: this.allTopics,
-      loaded: false,
-      message: 'Loading...'
     }
   },
   methods: {

@@ -8,14 +8,14 @@
     <section class="columns">
       <div class="column is-one-fifth">
         <div class="sidebar">
-          <TopicMenu :allTopics="topics" v-on:menuSelected="setGridData"></TopicMenu>
+          <TopicMenu :allTopics="topics" :detailsLoaded="detailsLoaded" v-on:menuSelected="setGridData" :key="detailsLoaded._all_count"></TopicMenu>
         </div>
       </div>
       <div class="column">
-        <Grid :selectedItem="selectedItem" :details="details"></Grid>
+        <Grid :selectedItem="selectedItem" :details="details" :key="detailsLoaded._all"></Grid>
       </div>
     </section>
-
+    <b-loading :is-full-page="true" :active.sync="showLoading" :can-cancel="false"></b-loading>
   </div>
 </template>
 
@@ -33,20 +33,20 @@ export default {
     axios.get('/api/status/topic')
       .then(response => {
         this.topics = response.data
-        this.loaded = true
+        this.showLoading = false
         this.getAllDetails()
       })
       .catch(() => {
-        this.message = 'Error loading status grid. Please refresh.'
+        alert('Error loading status grid. Please refresh.')
       })
   },
   data () {
     return {
       topics: [],
       details: {},
+      detailsLoaded: {_all: false, _all_count: 0},
       selectedItem: '_all',
-      loaded: false,
-      message: 'Loading...'
+      showLoading: true
     }
   },
   methods: {
@@ -54,12 +54,18 @@ export default {
       axios.get('/api/status/topic/' + topicName)
         .then(response => {
           this.details[topicName] = response.data
+          this.detailsLoaded[topicName] = true
+          this.detailsLoaded._all_count++
+          if (this.detailsLoaded._all_count === this.topics.length) {
+            this.detailsLoaded._all = true
+          }
         })
         .catch(() => {
-          this.message = 'Error loading status details. Please refresh.'
+          console.log('Error loading status details. Please refresh.')
         })
     },
     getAllDetails: function () {
+      this.detailsLoaded = {_all: false, _all_count: 0}
       for (let topicName of this.topics) {
         this.getDetails(topicName)
       }
