@@ -5,7 +5,7 @@
 ![GitHub language count](https://img.shields.io/github/languages/count/trevorism/status)
 ![GitHub top language](https://img.shields.io/github/languages/top/trevorism/status)
 
-Current Version: 0.0.1
+Current Version: 0.2.0
 
 Shows the recent events as they progress through the system.
 
