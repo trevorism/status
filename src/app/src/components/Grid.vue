@@ -62,7 +62,6 @@ export default {
       this.collapsedData = allData
     },
     buttonClick: function (row) {
-      console.log(row)
       this.createAllData()
       this.currentDetails = row
       this.isModalActive = true
