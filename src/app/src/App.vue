@@ -8,7 +8,7 @@
     <section class="columns">
       <div class="column is-one-fifth">
         <div class="sidebar">
-          <TopicMenu :allTopics="topics" :detailsLoaded="detailsLoaded" v-on:menuSelected="setGridData" :key="detailsLoaded._all_count"></TopicMenu>
+          <TopicMenu :allTopics="topics" :detailsLoaded="detailsLoaded" v-on:menuSelected="setGridData" :key="detailsLoaded._all_count" :selectedItem="selectedItem"></TopicMenu>
         </div>
       </div>
       <div class="column">

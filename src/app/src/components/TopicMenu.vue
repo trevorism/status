@@ -1,7 +1,7 @@
 <template>
   <b-menu>
     <b-menu-list label="Topics">
-      <b-menu-item @click="selected('_all')" :active="true">
+      <b-menu-item @click="selected('_all')" :active="selectedItem === '_all'">
         <template slot="label" slot-scope="all">
           <div class="container">
             All
@@ -12,7 +12,7 @@
         </template>
       </b-menu-item>
       <div v-for="topic in allTopics" v-bind:key="topic.id">
-        <b-menu-item @click="selected(topic)" :ref="topic">
+        <b-menu-item @click="selected(topic)" :active="selectedItem === topic">
           <template slot="label" slot-scope="props">
             <div class="container">
               {{topic}}
@@ -30,7 +30,7 @@
 <script>
 export default {
   name: 'TopicMenu',
-  props: ['allTopics', 'detailsLoaded'],
+  props: ['allTopics', 'detailsLoaded', 'selectedItem'],
   data () {
     return {
     }
