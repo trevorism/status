@@ -1,6 +1,7 @@
 package com.trevorism.status
 
 import com.trevorism.http.HttpClient
+import com.trevorism.https.SecureHttpClient
 import com.trevorism.status.model.EventDetail
 import org.junit.Test
 
@@ -14,7 +15,7 @@ class StatusControllerTest {
 
     @Test
     void testGetTopics() {
-        statusController.httpClient = [get: {url -> return '["topic1","topic2"]'}] as HttpClient
+        statusController.secureHttpClient = [get: {url -> return '["topic1","topic2"]'}] as SecureHttpClient
         List<String> topics = statusController.getTopics()
         assert topics
         assert topics.size() == 2
@@ -24,7 +25,7 @@ class StatusControllerTest {
 
     @Test
     void testGetEventDetails() {
-        statusController.httpClient = [get: {url -> return '[{"id":4505759559712768,"projectname":"trevorism-gcloud","servicename":"cinvoke","datecreated":"2018-06-16T02:00:48.249Z"},{"id":4536157173972992,"projectname":"trevorism-gcloud","servicename":"cinvoke","correlationid":"test1","datecreated":"2018-08-27T02:33:15.273Z"}]'}] as HttpClient
+        statusController.secureHttpClient = [get: {url -> return '[{"id":4505759559712768,"projectname":"trevorism-gcloud","servicename":"cinvoke","datecreated":"2018-06-16T02:00:48.249Z"},{"id":4536157173972992,"projectname":"trevorism-gcloud","servicename":"cinvoke","correlationid":"test1","datecreated":"2018-08-27T02:33:15.273Z"}]'}] as SecureHttpClient
         List<EventDetail> details = statusController.getEventDetails("workcomplete")
 
         assert details
@@ -42,7 +43,7 @@ class StatusControllerTest {
 
     @Test
     void testTestResultsAreRemoved() {
-        statusController.httpClient = [get: {url -> return '["topic1","topic2","testresult"]'}] as HttpClient
+        statusController.secureHttpClient = [get: {url -> return '["topic1","topic2","testresult"]'}] as SecureHttpClient
         List<String> topics = statusController.getTopics()
         assert topics
         assert topics.size() == 2

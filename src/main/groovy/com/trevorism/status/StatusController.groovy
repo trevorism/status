@@ -3,6 +3,8 @@ package com.trevorism.status
 import com.google.gson.Gson
 import com.trevorism.http.HttpClient
 import com.trevorism.http.JsonHttpClient
+import com.trevorism.https.DefaultSecureHttpClient
+import com.trevorism.https.SecureHttpClient
 import com.trevorism.status.model.EventDetail
 import io.swagger.annotations.Api
 
@@ -19,15 +21,15 @@ class StatusController {
     String EVENT_BASE_URL = "https://event.trevorism.com"
     String DATASTORE_BASE_URL = "https://datastore.trevorism.com"
 
-    private HttpClient httpClient = new JsonHttpClient()
+    private SecureHttpClient secureHttpClient = new DefaultSecureHttpClient()
     private Gson gson = new Gson()
 
     @GET
     @Path("topic")
     @Produces(MediaType.APPLICATION_JSON)
     List<String> getTopics(){
-        String topicsJson = httpClient.get(EVENT_BASE_URL + "/admin/topic")
-        String storedDataJson = httpClient.get(DATASTORE_BASE_URL + "/api")
+        String topicsJson = secureHttpClient.get(EVENT_BASE_URL + "/admin/topic")
+        String storedDataJson = secureHttpClient.get(DATASTORE_BASE_URL + "/api")
 
         List<String> topics = gson.fromJson(topicsJson, List)
         List<String> datastores = gson.fromJson(storedDataJson, List)
@@ -41,7 +43,7 @@ class StatusController {
     @Path("topic/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     List<EventDetail> getEventDetails(@PathParam("id") String topicName){
-        String eventsJson = httpClient.get(DATASTORE_BASE_URL + "/api/${topicName}")
+        String eventsJson = secureHttpClient.get(DATASTORE_BASE_URL + "/api/${topicName}")
         List allEvents = gson.fromJson(eventsJson, List)
         return allEvents.collect {
             String backToJson = gson.toJson(it)
